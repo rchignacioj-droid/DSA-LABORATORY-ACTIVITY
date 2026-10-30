@@ -1,0 +1,188 @@
+/*
+Description: This program checks if delimiters are properly matched
+using a stack.
+
+Programmed by: Jacinth Reich A. Ignacio - BSIT - Data Structures
+Last Modified: October 30, 2026
+*/
+
+import java.util.Scanner;
+import java.util.Stack;
+
+public class StackDelimiterChecker {
+
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+        Stack<Character> stack = new Stack<>();
+
+        System.out.print("Enter a sequence: ");
+        String sequence = input.nextLine();
+
+        boolean valid = true;
+        String reason = "";
+
+        for (int i = 0; i < sequence.length(); i++) {
+
+            char current = sequence.charAt(i);
+
+            if (current == '(' || current == '[' || current == '{') {
+
+                stack.push(current);
+
+                System.out.println("Read: " + current);
+                System.out.println("Operation: PUSH");
+                System.out.println("Stack: " + stack);
+
+            } else if (current == ')' || current == ']' || current == '}') {
+
+                System.out.println("Read: " + current);
+
+                if (stack.isEmpty()) {
+                    valid = false;
+                    reason = "Closing delimiter has no matching opening delimiter.";
+                    break;
+                }
+
+                char top = stack.peek();
+
+                System.out.println("Operation: PEEK -> " + top);
+
+                if ((current == ')' && top == '(') ||
+                    (current == ']' && top == '[') ||
+                    (current == '}' && top == '{')) {
+
+                    stack.pop();
+
+                    System.out.println("Operation: POP");
+                    System.out.println("Stack: " + stack);
+
+                } else {
+                    valid = false;
+                    reason = "Mismatched delimiters.";
+                    break;
+                }
+            }
+        }
+
+        if (valid && !stack.isEmpty()) {
+            valid = false;
+            reason = "Unmatched opening delimiter remains.";
+        }
+
+        System.out.println("\nFinal Result: " +
+                (valid ? "VALID" : "INVALID"));
+
+        if (!valid) {
+            System.out.println("Reason: " + reason);
+            System.out.println("Remaining Stack: " + stack);
+        }
+
+        input.close();
+    }
+}
+
+/*
+Description: This program checks if delimiters are properly matched
+using a stack.
+
+Programmed by: Jacinth Reich A. Ignacio - BSIT - Data Structures
+Last Modified: October 30, 2026
+*/
+
+import java.util.Scanner;
+import java.util.Stack;
+
+public class StackDelimiterChecker {
+
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+        Stack<Character> stack = new Stack<>();
+
+        System.out.print("Enter a sequence: ");
+        String sequence = input.nextLine();
+
+        boolean valid = true;
+        String reason = "";
+
+        System.out.println("\nSTACK EXECUTION TRACE");
+
+        for (int i = 0; i < sequence.length(); i++) {
+
+            char current = sequence.charAt(i);
+
+            if (current == '(' || current == '[' || current == '{') {
+
+                System.out.println("\nRead: " + current);
+
+                stack.push(current);
+
+                System.out.println("Operation: PUSH " + current);
+                System.out.println("Stack: " + stack);
+
+            } else if (current == ')' || current == ']' || current == '}') {
+
+                System.out.println("\nRead: " + current);
+
+                if (stack.isEmpty()) {
+
+                    valid = false;
+                    reason = "Closing delimiter has no matching opening delimiter.";
+
+                    System.out.println("Operation: INVALID");
+                    System.out.println("Reason: " + reason);
+                    System.out.println("Stack: " + stack);
+
+                    break;
+                }
+
+                char top = stack.peek();
+
+                System.out.println("Operation: PEEK -> " + top);
+
+                if ((current == ')' && top == '(') ||
+                    (current == ']' && top == '[') ||
+                    (current == '}' && top == '{')) {
+
+                    stack.pop();
+
+                    System.out.println("Operation: POP " + top);
+                    System.out.println("Stack: " + stack);
+
+                } else {
+
+                    valid = false;
+                    reason = "Mismatched delimiters.";
+
+                    System.out.println("Operation: INVALID");
+                    System.out.println("Reason: " + current +
+                            " does not match " + top);
+                    System.out.println("Stack: " + stack);
+
+                    break;
+                }
+            }
+        }
+
+        if (valid && !stack.isEmpty()) {
+
+            valid = false;
+            reason = "Unmatched opening delimiter remains.";
+
+            System.out.println("\nOperation: INVALID");
+            System.out.println("Reason: " + reason);
+            System.out.println("Stack: " + stack);
+        }
+
+        System.out.println("\nFINAL RESULT: " +
+                (valid ? "VALID" : "INVALID"));
+
+        if (!valid) {
+            System.out.println("Reason: " + reason);
+        }
+
+        input.close();
+    }
+}
+
